@@ -15,7 +15,7 @@ package reqParamProto
 import proto "github.com/golang/protobuf/proto"
 import fmt "fmt"
 import math "math"
-import transactionProto "protobuf_test/protobuf/transactionProto"
+import transactionProto "github.com/ipaynowORG/ipaynow_agent_go/protobuf/transactionProto"
 
 // Reference imports to suppress errors if they are not otherwise used.
 var _ = proto.Marshal
