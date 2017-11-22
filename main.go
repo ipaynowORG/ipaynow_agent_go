@@ -1,8 +1,11 @@
 package main
 
 import (
+	"bytes"
 	"fmt"
+	"io/ioutil"
 	"log"
+	"net/http"
 
 	"github.com/ipaynowORG/ipaynow_agent_go/protobuf/paymentProto"
 	"github.com/ipaynowORG/ipaynow_agent_go/protobuf/reqParamProto"
@@ -72,6 +75,40 @@ func main() {
 	param.Sign = signedTransaction
 
 	datapparam, _ := proto.Marshal(param)
-	fmt.Println(fmt.Sprintf("%x", datapparam))
 
+	result, _ := post("https://bc-test.ipaynow.cn/gateway", datapparam)
+	fmt.Println(fmt.Sprintf("%x", result))
+
+	// 进行解码
+	resultParam := &reqParamProto.Param{}
+	err = proto.Unmarshal(result, resultParam)
+	if err != nil {
+		log.Fatal("unmarshaling error: ", err)
+	}
+
+}
+
+func post(url string, data []byte) ([]byte, error) {
+
+	body := bytes.NewReader(data)
+	request, err := http.NewRequest("POST", url, body)
+	if err != nil {
+		log.Println("http.NewRequest,[err=%s][url=%s]", err, url)
+		return []byte(""), err
+	}
+	request.Header.Set("Content-Type", "application/x-protobuf")
+	request.Header.Set("Accept", "application/x-protobuf")
+
+	var resp *http.Response
+	resp, err = http.DefaultClient.Do(request)
+	if err != nil {
+		log.Println("http.Do failed,[err=%s][url=%s]", err, url)
+		return []byte(""), err
+	}
+	defer resp.Body.Close()
+	b, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		log.Println("http.Do failed,[err=%s][url=%s]", err, url)
+	}
+	return b, err
 }
