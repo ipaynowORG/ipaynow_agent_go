@@ -230,6 +230,17 @@ type BalanceQueryResp struct {
 	AccountBalance uint64
 }
 
+/**
+ * 账户余额查询
+ * @param reqDto, appId 商户应用唯一标识。mhtOrderNo 请求流水号
+ * @return BalanceQueryRespDto
+ *  appId,同输入
+ *  mhtOrderNo,同输入
+ *  accountBalance, 账户余额
+ *  responseCode 响应码(见文档附录)
+ *  responseMsg 响应信息
+ * @throws IpayNowException
+ */
 func BalanceQuery(sdkParams *SdkParams, balanceQueryParams *BalanceQueryParams) *BalanceQueryResp {
 	queryDetailParams := &paymentProto.QueryDetailParams{}
 

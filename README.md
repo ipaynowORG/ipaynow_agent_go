@@ -138,7 +138,7 @@
          *  responseMsg 响应信息
          * @throws IpayNowException
          */
-        BalanceQueryRespDto balanceQuery(QueryReqDto reqDto) throws IpayNowException;
+        func BalanceQuery(sdkParams *SdkParams, balanceQueryParams *BalanceQueryParams) *BalanceQueryResp 
 
 <h5 id='2.1.4'></h4>
 
