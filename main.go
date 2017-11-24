@@ -35,6 +35,7 @@ func main() {
 	//	if batchQueryResult != nil {
 	//		fmt.Println(batchQueryResult)
 	//	}
+
 	//	balanceQueryResp := sdk.BalanceQuery(sdkParams, sdk.MakeBalanceQueryParams("1459846530407363", "test11112"))
 	//	if balanceQueryResp != nil {
 	//		fmt.Println(balanceQueryResp)
