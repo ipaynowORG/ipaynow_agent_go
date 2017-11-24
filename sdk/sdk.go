@@ -232,14 +232,19 @@ type BalanceQueryResp struct {
 
 /**
  * 账户余额查询
- * @param reqDto, appId 商户应用唯一标识。mhtOrderNo 请求流水号
+ * @param balanceQueryParams,
+ * 	balanceQueryParams.appId 商户应用唯一标识
+ * 	balanceQueryParams.mhtOrderNo 请求流水号
+ * @param sdkParams,
+ * 	sdkParams.reqUrl 请求地址
+ * 	sdkParams.key 请求流水号 商户生成的私钥(公钥发由现在支付)
+ * 	sdkParams.merchantId 商户号,由现在支付分配
  * @return BalanceQueryRespDto
- *  appId,同输入
- *  mhtOrderNo,同输入
- *  accountBalance, 账户余额
- *  responseCode 响应码(见文档附录)
- *  responseMsg 响应信息
- * @throws IpayNowException
+ *  BalanceQueryResp.appId,同输入
+ *  BalanceQueryResp.mhtOrderNo,同输入
+ *  BalanceQueryResp.accountBalance, 账户余额
+ *  BalanceQueryResp.responseCode 响应码(见文档附录)
+ *  BalanceQueryResp.responseMsg 响应信息
  */
 func BalanceQuery(sdkParams *SdkParams, balanceQueryParams *BalanceQueryParams) *BalanceQueryResp {
 	queryDetailParams := &paymentProto.QueryDetailParams{}
@@ -304,17 +309,26 @@ func BalanceQuery(sdkParams *SdkParams, balanceQueryParams *BalanceQueryParams) 
 
 /**
  * 代付退票批量查询
- * @param batchQueryParams ,appId 商户应用唯一标识,mhtOrderNo 商户请求流水号,nowPage 商户请求页码,pageSize 商户请求数据量,refundDate 退票日期
+ * @param batchQueryParams
+ *  batchQueryParams.appId 商户应用唯一标识
+ *  batchQueryParams.mhtOrderNo 商户请求流水号
+ *  batchQueryParams.nowPage 商户请求页码
+ *  batchQueryParams.pageSize 商户请求数据量
+ *  batchQueryParams.refundDate 退票日期
+ * @param sdkParams,
+ * 	sdkParams.reqUrl 请求地址
+ * 	sdkParams.key 请求流水号 商户生成的私钥(公钥发由现在支付)
+ * 	sdkParams.merchantId 商户号,由现在支付分配
  * @return BatchQueryResult
- * responseCode 响应码(见文档附录)
- * responseMsg 响应信息
- * mhtOrderNo,同输入
- * appId,同输入
- * nowPage,同输入
- * pageSize,同输入
- * countNums,数据总数
- * countPages,总页数
- * agentPayRefundQueryRespFieldList , 见AgentPayRefundQueryRespDto中的相关字段含义
+ *  BatchQueryResult.responseCode 响应码(见文档附录)
+ *  BatchQueryResult.responseMsg 响应信息
+ *  BatchQueryResult.mhtOrderNo,同输入
+ *  BatchQueryResult.appId,同输入
+ *  BatchQueryResult.nowPage,同输入
+ *  BatchQueryResult.pageSize,同输入
+ *  BatchQueryResult.countNums,数据总数
+ *  BatchQueryResult.countPages,总页数
+ *  BatchQueryResult.agentPayRefundQueryRespFieldList 退票详情
  */
 func AgentPayRefundBatchQuery(sdkParams *SdkParams, batchQueryParams *BatchQueryParams) *BatchQueryResult {
 
@@ -383,23 +397,29 @@ func AgentPayRefundBatchQuery(sdkParams *SdkParams, batchQueryParams *BatchQuery
 
 /**
  * 单笔代付退票查询
- * @param agentPayRefundQueryParams,appId 商户应用唯一标识,mhtOrderNo 商户请求流水号
+ * @param agentPayRefundQueryParams
+ * agentPayRefundQueryParams.appId 商户应用唯一标识
+ * agentPayRefundQueryParams.mhtOrderNo 商户请求流水号
+ * @param sdkParams,
+ * 	sdkParams.reqUrl 请求地址
+ * 	sdkParams.key 请求流水号 商户生成的私钥(公钥发由现在支付)
+ * 	sdkParams.merchantId 商户号,由现在支付分配
  * @return AgentPayRefundQuery
- * responseCode 响应码(见文档附录)
- * responseMsg 响应信息
- * mhtOrderNo,同输入
- * appId,同输入
- * nowPayOrderNo , 现在支付流水号,退票流水号
- * originalMhtOrderNo ,
- * originalNowPayOrderNo , 原代付流水号
- * payeeAccType ,入账账户类型,01 对公  02 对私
- * payeeName, 入账账户户名
- * payeeCardNo, 入账账户账号
- * payeeCardUnionNo,入账账户联行号
- * refundDate,退票日期,yyyyMMdd
- * refundCode,退票码
- * refundMsg,退票原因
- * transStatus,交易状态。SUCCESSED,成功 。FAILED,失败。PROCESSING,处理中。
+ * AgentPayRefundQueryResult.responseCode 响应码(见文档附录)
+ * AgentPayRefundQueryResult.responseMsg 响应信息
+ * AgentPayRefundQueryResult.mhtOrderNo,同输入
+ * AgentPayRefundQueryResult.appId,同输入
+ * AgentPayRefundQueryResult.nowPayOrderNo , 现在支付流水号,退票流水号
+ * AgentPayRefundQueryResult.originalMhtOrderNo ,
+ * AgentPayRefundQueryResult.originalNowPayOrderNo , 原代付流水号
+ * AgentPayRefundQueryResult.payeeAccType ,入账账户类型,01 对公  02 对私
+ * AgentPayRefundQueryResult.payeeName, 入账账户户名
+ * AgentPayRefundQueryResult.payeeCardNo, 入账账户账号
+ * AgentPayRefundQueryResult.payeeCardUnionNo,入账账户联行号
+ * AgentPayRefundQueryResult.refundDate,退票日期,yyyyMMdd
+ * AgentPayRefundQueryResult.refundCode,退票码
+ * AgentPayRefundQueryResult.refundMsg,退票原因
+ * AgentPayRefundQueryResult.transStatus,交易状态。SUCCESSED,成功 。FAILED,失败。PROCESSING,处理中。
  */
 func AgentPayRefundQuery(sdkParams *SdkParams, agentPayRefundQueryParams *AgentPayRefundQueryParams) *AgentPayRefundQueryResult {
 	queryAgentPayRefundParams := &paymentProto.QueryAgentPayRefundParams{}
@@ -480,12 +500,15 @@ func AgentPayRefundQuery(sdkParams *SdkParams, agentPayRefundQueryParams *AgentP
  *  agentReceiveParams.mhtReqTime :商户请求时间
  *  agentReceiveParams.mhtOrderNo :商户请求流水号
  *  agentReceiveParams.mhtOrderAmt :代付金额
-
+ * @param sdkParams,
+ * 	sdkParams.reqUrl 请求地址
+ * 	sdkParams.key 请求流水号 商户生成的私钥(公钥发由现在支付)
+ * 	sdkParams.merchantId 商户号,由现在支付分配
  * 	@return AgentReceiveResult
- *  AppId,同输入
- *  mhtOrderNo,同输入
- *  responseCode 响应码(见文档附录)
- *  responseMsg 响应信息
+ *  AgentReceiveResult.AppId,同输入
+ *  AgentReceiveResult.mhtOrderNo,同输入
+ *  AgentReceiveResult.responseCode 响应码(见文档附录)
+ *  AgentReceiveResult.responseMsg 响应信息
  */
 func AgentReceive(sdkParams *SdkParams, agentReceiveParams *AgentReceiveParams) *AgentReceiveResult {
 
@@ -560,13 +583,17 @@ func AgentReceive(sdkParams *SdkParams, agentReceiveParams *AgentReceiveParams) 
  * agentPayParams.mhtReqTime : 商户请求时间
  * agentPayParams.mhtOrderNo : 商户订单号
  * agentPayParams.mhtOrderAmt : 代付金额
+ * @param sdkParams,
+ * 	sdkParams.reqUrl 请求地址
+ * 	sdkParams.key 请求流水号 商户生成的私钥(公钥发由现在支付)
+ * 	sdkParams.merchantId 商户号,由现在支付分配
  * @return AgentPay
- *  appId,同输入
- *  mhtOrderNo,同输入
- *  nowPayOrderNo, 现在支付流水号
- *  responseCode 响应码(见文档附录)
- *  responseMsg 响应信息
- *  transStatus ,交易状态。SUCCESSED,成功 。FAILED,失败。PROCESSING,处理中。
+ *  AgentPayResult.appId,同输入
+ *  AgentPayResult.mhtOrderNo,同输入
+ *  AgentPayResult.nowPayOrderNo, 现在支付流水号
+ *  AgentPayResult.responseCode 响应码(见文档附录)
+ *  AgentPayResult.responseMsg 响应信息
+ *  AgentPayResult.transStatus ,交易状态。SUCCESSED,成功 。FAILED,失败。PROCESSING,处理中。
  */
 func AgentPay(sdkParams *SdkParams, agentPayParams *AgentPayParams) *AgentPayResult {
 	mhtField := "{\"accType\":\"" + agentPayParams.accType + "\",\"payeeName\":\"" + agentPayParams.payeeName + "\",\"payeeCardUnionNo\":\"\",\"payChannelType\":\"15\",\"appId\":\"" + agentPayParams.appId + "\",\"mhtReqTime\":\"" + agentPayParams.mhtReqTime + "\",\"agentPayMemo\":\"" + agentPayParams.agentPayMemo + "\",\"deviceType\":\"13\",\"payeeCardNo\":\"" + agentPayParams.payeeCardNo + "\"}"
@@ -632,17 +659,23 @@ func AgentPay(sdkParams *SdkParams, agentPayParams *AgentPayParams) *AgentPayRes
 
 /**
          * 交易查询
-         * @param queryParams, appId:商户应用唯一标识。mhtOrderNo: 商户请求流水号
+         * @param queryParams,
+		 * queryParams.appId:商户应用唯一标识
+		 * queryParams.mhtOrderNo: 商户请求流水号
+ 		 * @param sdkParams,
+   		 * 	sdkParams.reqUrl 请求地址
+ 	 	 * 	sdkParams.key 请求流水号 商户生成的私钥(公钥发由现在支付)
+ 		 * 	sdkParams.merchantId 商户号,由现在支付分配
          * @return QueryResult,
-         *  appId,同输入
-         *  mhtOrderNo,同输入
-         *  nowPayOrderNo, 现在支付流水号
-         *  transType,交易类型： AGENT_PAY: 代付。    AGENT_RECEIVE：代收
-         *  responseCode 响应码(见文档附录)
-		 *  responseTime 应答时间
-         *  responseMsg 响应信息
-         *  mhtOrderAmt ,交易金额
-         *  transStatus ,交易状态。SUCCESSED,成功 。FAILED,失败。PROCESSING,处理中。
+         *  QueryResult.appId,同输入
+         *  QueryResult.mhtOrderNo,同输入
+         *  QueryResult.nowPayOrderNo, 现在支付流水号
+         *  QueryResult.transType,交易类型： AGENT_PAY: 代付。    AGENT_RECEIVE：代收
+         *  QueryResult.responseCode 响应码(见文档附录)
+		 *  QueryResult.responseTime 应答时间
+         *  QueryResult.responseMsg 响应信息
+         *  QueryResult.mhtOrderAmt ,交易金额
+         *  QueryResult.transStatus ,交易状态。SUCCESSED,成功 。FAILED,失败。PROCESSING,处理中。
          *
 */
 func TransQuery(sdkParams *SdkParams, queryParams *QueryParams) *QueryResult {
