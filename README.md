@@ -49,16 +49,6 @@
 
 [获取源码](https://github.com/ipaynowORG/ipaynow_agent_java)
 
-[demo源码](https://github.com/ipaynowORG/ipaynow_agent_java)
-
-Maven坐标如下
-
-	<dependency>
-	       <groupId>com.github.ipaynow</groupId>
-           <artifactId>ipaynow_agent_sdk</artifactId>
-           <version>1.0.0</version>
-	</dependency>
-
 <h4 id='1.3'> 1.3 接口地址 </h4>
 
     测试接口url: http://bc-test.ipaynow.cn/gateway
@@ -68,6 +58,10 @@ Maven坐标如下
 
 
 <h2 id='2'> 2. API </h2>
+
+使用"go get github.com/ipaynowORG/ipaynow_agent_go/sdk" 命令clone 并 install ipaynow_agent模块
+
+代码中 import (git "github.com/ipaynowORG/ipaynow_agent_go/sdk")使用
 
 <h4 id='2.1'> 2.1 代收付API </h4>
 
