@@ -370,7 +370,7 @@
 为了保证信息的安全性，公私钥信息为商户侧生成；生成完毕后，需将公钥信息给予现在支付侧；同时需记录现在支付给商户侧的公钥信息，以便双方进行数据解密。
 
     生成方法：
-
-    ECKey key = new ECKey();
-            System.out.println("PrivKey\t: " + Hex.toHexString(key.getPrivKeyBytes()));
-            System.out.println("Pubkey\t: " + Hex.toHexString(key.getPubKey()));
+	
+	"github.com/ethereum/go-ethereum/crypto"
+	
+    crypto.GenerateKey()
