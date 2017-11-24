@@ -345,7 +345,7 @@
         </tr>
     </table>
 
-<h2 id='3'> 3. 生成公私钥方法 </h2>
+<h2 id='3'> 3. DEMO </h2>
 
 package main
 
